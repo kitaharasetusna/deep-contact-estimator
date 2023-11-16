@@ -24,6 +24,7 @@ class contact_cnn(nn.Module):
             nn.MaxPool1d(kernel_size=2,
                          stride=2)
         )
+        # (B, 54, 150) - > (B, 64, 150) -> (B, 64, 75)
 
         self.block2 = nn.Sequential(
             nn.Conv1d(in_channels=64,
@@ -42,7 +43,8 @@ class contact_cnn(nn.Module):
             nn.MaxPool1d(kernel_size=2,
                          stride=2)
         )
-
+        # conv1d(3,1,1): unchanged shape, only change the dimension of the channel
+        # (B, 64, 75) -> (B, 128, 75) -> (B, 128, 37)
     
         self.fc = nn.Sequential(
             nn.Linear(in_features=4736,
@@ -56,13 +58,20 @@ class contact_cnn(nn.Module):
             nn.Linear(in_features=512,
                       out_features=16),
         )
+        # (B, 4736) ->(B, 2048)->(B, 512)->(B,16)
 
     def forward(self, x):
+        # (batch_size, window_size, num_features) 
         x = x.permute(0,2,1)
+        # (30, 54, 150) 
         block1_out = self.block1(x)
+        # (30, 64, 75) 
         block2_out = self.block2(block1_out)
+        #(30, 128, 37)
         block2_out_reshape = block2_out.view(block2_out.shape[0], -1)
+        #(30, 4736)
         fc_out = self.fc(block2_out_reshape)
+        #(30, 16) 
         return fc_out
 
 
@@ -124,6 +133,7 @@ class contact_cnn_1conv_2blocks(nn.Module):
             nn.MaxPool1d(kernel_size=2,
                          stride=2)
         )
+        # (B, 54, 150) - > (B, 64, 150) -> (B, 64, 75)
 
         self.block2 = nn.Sequential(
             nn.Conv1d(in_channels=64,
@@ -137,6 +147,7 @@ class contact_cnn_1conv_2blocks(nn.Module):
                          stride=2)
         )
 
+        # (B, 64, 75) -> (B, )
 
         self.fc = nn.Sequential(
             nn.Linear(in_features=4736,

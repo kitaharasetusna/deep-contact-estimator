@@ -97,8 +97,9 @@ def train(model, train_dataloader, val_dataloader, config):
             label = samples['label'] 
 
             optimizer.zero_grad()
-            output = model(input_data)
+            output = model(input_data) #(30, 150, 54) ->(30, 16) (config['batch_size'], 16)
 
+            # label (30,) 
             loss = criterion(output, label)
             loss.backward()
             optimizer.step()
