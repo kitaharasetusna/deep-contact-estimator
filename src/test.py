@@ -14,7 +14,7 @@ from sklearn.metrics import jaccard_score
 from sklearn.metrics import confusion_matrix
 
 from contact_cnn import *
-from utils.data_handler import *
+from my_utils.data_handler import *
 
 def compute_confusion_mat(bin_contact_pred_arr, bin_contact_gt_arr):
     

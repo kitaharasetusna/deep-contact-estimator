@@ -9,7 +9,7 @@ from tqdm import tqdm
 import torch.optim as optim
 
 from contact_cnn import *
-from utils.data_handler import *
+from my_utils.data_handler import *
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -211,7 +211,9 @@ def main():
     parser.add_argument('--config_name', type=str, default=os.path.dirname(os.path.abspath(__file__))+'/../config/network_params.yaml')
     args = parser.parse_args()
 
-    config = yaml.load(open(args.config_name))
+    with open(args.config_name, 'r') as f:
+        content = f.read().replace(r'\O', r'\\O')  # 替换不支持的转义字符
+        config = yaml.safe_load(content)
 
     print("Using the following params: ")
     print("-------------path-------------")

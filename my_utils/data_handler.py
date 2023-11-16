@@ -18,8 +18,8 @@ class contact_dataset(Dataset):
         self.data: a 2D array of all data points. rows are time axis, columns are features. (num_data, num_features)
         self.label: a vector of the corresponding contact states (in decimal). (num_data, 1)
         """
-        data = np.load(data_path)
-        label = np.load(label_path)
+        data = np.load(data_path) #(_, 54)
+        label = np.load(label_path) #(_, )
         
         self.num_data = (data.shape[0]-window_size+1)
         self.window_size = window_size

@@ -1,6 +1,6 @@
 
-mat_folder: "/home/justin/data/contact_data/2021-09-07_terrain_estimation/automatic_contact_mat/"
-save_path: "/home/justin/data/contact_data/2021-09-07_terrain_estimation/numpy/"
+mat_folder: "D:/OtherGitProject/deep-contact-estimator/data/"
+save_path: "D:/OtherGitProject/deep-contact-estimator/data\\numpy/"
 
 # mode: "train": split data into train/val/test
 #       "inference": create numpy for one seq without spliting

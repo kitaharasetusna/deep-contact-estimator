@@ -14,7 +14,7 @@ import time
 import torch.optim as optim
 
 from contact_cnn import *
-from utils.data_handler import *
+from my_utils.data_handler import *
 
 def inference(dataloader, model, device):
     
