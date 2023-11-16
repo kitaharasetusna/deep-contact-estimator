@@ -5,3 +5,7 @@ inference_results/
 .vscode
 *.txt
 data/*
+numpy/*
+*.zip
+model_lstm/*
+log_lstm/*

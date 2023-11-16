@@ -210,7 +210,7 @@ def main():
 
 
     parser = argparse.ArgumentParser(description='Train network')
-    parser.add_argument('--config_name', type=str, default=os.path.dirname(os.path.abspath(__file__))+'/../config/network_params.yaml')
+    parser.add_argument('--config_name', type=str, default=os.path.dirname(os.path.abspath(__file__))+'/../config/network_params_lstm.yaml')
     args = parser.parse_args()
 
     with open(args.config_name, 'r') as f:
@@ -242,16 +242,7 @@ def main():
     val_dataloader = DataLoader(dataset=val_data, batch_size=config['batch_size'])
 
     # init network
-    model = contact_cnn()
-    model2 = LSTMModel(input_size=54, num_layers=2, output_size=16)
-    # Calculate the number of parameters
-    total_params = sum(p.numel() for p in model.parameters())
-    print(f"Total number of parameters in the model: {total_params}")
-
-    # Calculate the number of parameters
-    total_params = sum(p.numel() for p in model2.parameters())
-    print(f"Total number of parameters in the model: {total_params}")
-    import sys; sys.exit()
+    model = LSTMModel(input_size=54, num_layers=2, output_size=16)
     model = model.to(device)
 
     train(model, train_dataloader, val_dataloader, config)
